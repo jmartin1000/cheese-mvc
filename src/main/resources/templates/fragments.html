@@ -9,11 +9,10 @@
 
 </head>
 <body>
-
-<nav th:fragment="navigation">
-    <a href="/cheese">List</a>
-    <a href="/cheese/add">Add</a>
-</nav>
+<header th:fragment="header">
+    <h1 th:text="${title}">Default Title</h1>
+    <p><a href="/cheese">List</a> • <a href="/cheese/add">Add</a></p>
+</header>
 
 
 </body>

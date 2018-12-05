@@ -3,12 +3,18 @@
 
 <head th:replace="fragments :: head"></head></head>
 <body>
-<h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
-
+<header th:replace="fragments :: header"></header>
+<br><br>
 <form method="post" >
-    <input type="text" name="cheeseName" />
+    <label for="cheeseName">Cheese</label>
+    <br>
+    <input type="text" id="cheeseName" name="cheeseName" />
+    <br><br>
+    <label for="cheeseDescription">Description</label>
+    <br>
+    <input class="description" type="text" id="cheeseDescription" name="cheeseDescription" />
+    <br><br>
     <input type="submit" value="Add Cheese" />
 </form>
 

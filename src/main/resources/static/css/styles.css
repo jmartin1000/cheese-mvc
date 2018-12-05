@@ -1,3 +1,49 @@
 body {
     font-family: sans-serif;
 }
+
+header {
+    background-color: #ffdb4d;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+header h1 {
+    font-size: 40px;
+    height: 44px;
+}
+
+header a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+label {
+    width: 75px;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: left;
+}
+
+input[type=text] {
+    width: 150px;
+    font-size: 25px;
+    padding: 5px;
+}
+
+.description {
+    width: 450px;
+    font-size: 20px;
+    padding: 5px;
+}
+/*
+input[type=submit] {
+    height: 25px;
+    font-size: 20px:
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+}
+*/
