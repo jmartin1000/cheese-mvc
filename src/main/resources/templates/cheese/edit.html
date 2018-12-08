@@ -9,6 +9,19 @@
 
 <form method="post">
     <ul class="edit">
+        <li th:each="cheese : ${cheeses}" >
+            <input type="checkbox" th:text="' ' + ' ' + ' ' + ' ' + ${cheese.getName()}" name="cheeseName" th:value="${cheese.getName()}"/>
+        </li>
+        <li>
+            <input type="submit" value="Remove"/>
+        </li>
+    </ul>
+
+</form>
+
+<!-- when entering cheese as strings and hashmaps
+<form method="post">
+    <ul class="edit">
         <li th:each="mapItem : ${cheeses}" >
             <input type="checkbox" th:text="' ' + ' ' + ' ' + ' ' + ${mapItem.key}" name="cheese" th:value="${mapItem.key}"/>
         </li>
@@ -18,5 +31,6 @@
     </ul>
 
 </form>
+-->
 </body>
 </html>

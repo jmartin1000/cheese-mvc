@@ -1,5 +1,6 @@
 package org.launchcode.cheesemvc.controllers;
 
+import org.launchcode.cheesemvc.models.Cheese;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import java.util.Map;
 @RequestMapping("cheese")
 public class CheeseController {
 
-    static HashMap<String, String> cheeses = new HashMap<>();
+    static ArrayList<Cheese> cheeses = new ArrayList<>();
 
     // Request path: /cheese
     @RequestMapping(value = "")
@@ -34,7 +35,8 @@ public class CheeseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String cheeseDescription) {
-        cheeses.put(cheeseName, cheeseDescription);
+        Cheese aCheese = new Cheese(cheeseName, cheeseDescription);
+        cheeses.add(aCheese);
 
         // Redirect to /cheese
         return "redirect:";
@@ -50,12 +52,19 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String processEditCheeseForm(@RequestParam ArrayList<String> cheese) {
-        // testing to see what parameters the controller is pulling out
-        System.out.println(cheese);
+    public String processEditCheeseForm(@RequestParam ArrayList<String> cheeseName) {
 
-        for (String name : cheese) {
-            cheeses.remove(name);
+        // tried to put the Cheese object as the value of the checkbox input and then pass an
+        // arraylist of objects. then simply remove the objects from the arraylist But
+        // did not work. why?
+
+        for (String name : cheeseName) {
+            for (Cheese cheese : cheeses) {
+                if (name.equals(cheese.getName())) {
+                    cheeses.remove(cheese);
+                    break;
+                }
+            }
         }
 
         // Redirect to /cheese

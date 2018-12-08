@@ -13,15 +13,15 @@
       <th>Cheese</th>
       <th>Description</th>
    </tr>
-   <tr th:each="mapItem : ${cheeses}">
-      <td th:text="${mapItem.key}"></td>
-      <td th:text="${mapItem.value}">Value</td>
+   <tr th:each="cheese : ${cheeses}">
+      <td th:text="${cheese.getName()}"></td>
+      <td th:text="${cheese.getDescription()}"></td>
    </tr>
 </table>
 <p>As a list:</p>
 
 <ul>
-   <li th:each="mapItem : ${cheeses}" th:text="${mapItem.key} + ':   ' + ${mapItem.value}" />
+   <li th:each="cheese : ${cheeses}" th:text="${cheese.getName()} + ':   ' + ${cheese.getDescription()}" />
 </ul>
 
 </body>
