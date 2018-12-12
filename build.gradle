@@ -32,3 +32,8 @@ dependencies {
 }
 
 
+bootRun {
+	sourceResources sourceSets.main
+}
+
+
