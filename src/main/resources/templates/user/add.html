@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container body-content">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:if="${user}">Let's try that password again!</p>
+
+<form method="post" style="max-width:600px;">
+    <p th:if="${error1}" style="color: red;" th:text="${error1}"></p>
+    <div th:unless="${user}" class="form-group">
+        <label for="name-field">Name</label>
+        <input class="form-control" id="name-field" type="text" name="username" placeholder="must be 5 to 15 letters, no other characters"/>
+    </div>
+    <div th:if="${user}" class="form-group">
+        <label for="name-field">Name</label>
+        <input class="form-control" id="name-field" type="text" name="username" th:value="${user.username}"/>
+    </div>
+    <p th:if="${error2}" style="color: red;" th:text="${error2}"></p>
+    <div th:unless="${user}" class="form-group">
+        <label for="email-field">Email</label>
+        <input class="form-control" id="email-field" type="email" name="email" />
+    </div>
+    <div th:if="${user}" class="form-group">
+        <label for="email-field">Email</label>
+        <input class="form-control" id="email-field" type="email" name="email" th:value="${user.email}"/>
+    </div>
+    <p th:if="${error3}" style="color: red;" th:text="${error3}"></p>
+    <div class="form-group">
+        <label for="pswd-field">Password</label>
+        <input class="form-control" id="pswd-field" type="password" name="password" />
+    </div>
+    <div class="form-group">
+        <label for="pswd-verify">Verify Password</label>
+        <input class="form-control" id="pswd-verify" type="password" name="verify" />
+    </div>
+    <input th:if="${user}" type="hidden" name="id" th:value="${user.userId}" />
+    <input th:unless="${user}" type="hidden" name="id" value="0" />
+    <input type="submit" value="Sign Up" />
+</form>
 
 </body>
 </html>

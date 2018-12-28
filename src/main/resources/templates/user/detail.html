@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container body-content">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h2 th:if="${user}" th:text="'All about ' + ${user.username} +'!'">Welcome</h2>
+<ul th:if="${user}">
+    <li th:text="'userId: ' + ${user.userId}"></li>
+    <li th:text="'date joined: ' + ${user.date}"></li>
+    <li th:text="'user email: ' + ${user.email}"></li>
+    <li th:text="'user password: ' + ${user.password}"></li>
+</ul>
+
+<h4><a href="/user">home</a></h4>
+
+</body>
+</html>

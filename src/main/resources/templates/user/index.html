@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container body-content">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h2 th:if="${user}" th:text="'Welcome, ' + ${user.username} +'!'">Welcome</h2>
+
+<p th:unless="${users} and ${users.size()}">no users :(</p>
+
+<div th:if="${users}">
+<table class="table" >
+
+    <tr>
+        <th>Users</th>
+        <th></th>
+    </tr>
+
+    <tr th:each="aUser : ${users}">
+        <td th:text="${aUser.username}"></td>
+        <td><a th:href="@{'/user/detail/' +${aUser.userId}}">details</a></td>
+    </tr>
+
+</table>
+</div>
 
 </body>
 </html>
