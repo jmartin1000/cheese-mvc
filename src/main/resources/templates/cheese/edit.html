@@ -1,36 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
+<body class="container body-content">
+<h1 th:text="${title}">Default Title</h1>
 
-<header th:replace="fragments :: header"></header>
-<br><br>
-<h1>Select the cheese(s) you wish to remove:</h1>
+<nav th:replace="fragments :: navigation"></nav>
 
-<form method="post">
-    <ul class="edit">
-        <li th:each="cheese : ${cheeses}" >
-            <input type="checkbox" th:text="' ' + ' ' + ' ' + ' ' + ${cheese.getName()}" name="cheeseName" th:value="${cheese.getName()}"/>
-        </li>
-        <li>
-            <input type="submit" value="Remove"/>
-        </li>
-    </ul>
-
+<h2 th:text="'Edit Cheese ' + ${#strings.capitalizeWords(cheese.name)} + ' (id=' + ${cheese.cheeseId} +')'"></h2>
+<form method="post" th:action="${cheese.cheeseId}" style="max-width:600px;">
+    <div class="form-group">
+        <label for="name-field">Name</label>
+        <input class="form-control" id="name-field" type="text" name="name" th:value="${#strings.capitalizeWords(cheese.name)}"/>
+    </div>
+    <div class="form-group">
+        <label for="desc-field">Description</label>
+        <input class="form-control" id="desc-field" type="text" name="description" th:value="${cheese.description}"/>
+    </div>
+    <input type="hidden" name="cheeseId" th:value="${cheese.cheeseId}" />
+    <input type="submit" value="Edit Cheese" />
 </form>
 
-<!-- when entering cheese as strings and hashmaps
-<form method="post">
-    <ul class="edit">
-        <li th:each="mapItem : ${cheeses}" >
-            <input type="checkbox" th:text="' ' + ' ' + ' ' + ' ' + ${mapItem.key}" name="cheese" th:value="${mapItem.key}"/>
-        </li>
-        <li>
-            <input type="submit" value="Remove"/>
-        </li>
-    </ul>
-
-</form>
--->
 </body>
 </html>
