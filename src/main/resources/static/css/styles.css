@@ -42,6 +42,10 @@ input[type=text] {
 .edit {
     list-style-type: none;
 }
+
+.error {
+    color: red;
+}
 /*
 input[type=submit] {
     height: 25px;

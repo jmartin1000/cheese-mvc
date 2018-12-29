@@ -6,10 +6,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:if="${user}">Let's try that password again!</p>
-
 <form method="post" style="max-width:600px;">
-    <p th:if="${error1}" style="color: red;" th:text="${error1}"></p>
     <div th:unless="${user}" class="form-group">
         <label for="name-field">Name</label>
         <input class="form-control" id="name-field" type="text" name="username" placeholder="must be 5 to 15 letters, no other characters"/>
@@ -17,8 +14,8 @@
     <div th:if="${user}" class="form-group">
         <label for="name-field">Name</label>
         <input class="form-control" id="name-field" type="text" name="username" th:value="${user.username}"/>
+        <span th:if="${error1}" style="color: red;" th:text="${error1}"></span>
     </div>
-    <p th:if="${error2}" style="color: red;" th:text="${error2}"></p>
     <div th:unless="${user}" class="form-group">
         <label for="email-field">Email</label>
         <input class="form-control" id="email-field" type="email" name="email" />
@@ -26,11 +23,12 @@
     <div th:if="${user}" class="form-group">
         <label for="email-field">Email</label>
         <input class="form-control" id="email-field" type="email" name="email" th:value="${user.email}"/>
+        <span th:if="${error2}" style="color: red;" th:text="${error2}"></span>
     </div>
-    <p th:if="${error3}" style="color: red;" th:text="${error3}"></p>
     <div class="form-group">
         <label for="pswd-field">Password</label>
         <input class="form-control" id="pswd-field" type="password" name="password" />
+        <span th:if="${error3}" style="color: red;" th:text="${error3}"></span>
     </div>
     <div class="form-group">
         <label for="pswd-verify">Verify Password</label>

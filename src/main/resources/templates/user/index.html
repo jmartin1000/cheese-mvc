@@ -17,12 +17,10 @@
 
     <tr>
         <th>Users</th>
-        <th></th>
     </tr>
 
     <tr th:each="aUser : ${users}">
-        <td th:text="${aUser.username}"></td>
-        <td><a th:href="@{'/user/detail/' +${aUser.userId}}">details</a></td>
+        <td><a th:href="@{'/user/detail/' +${aUser.userId}}" th:text="${aUser.username}"></a></td>
     </tr>
 
 </table>
