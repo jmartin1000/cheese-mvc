@@ -4,11 +4,14 @@ import org.launchcode.cheesemvc.models.User;
 import org.launchcode.cheesemvc.models.UserData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 
 @Controller
@@ -55,14 +58,16 @@ public class UserController {
                 model.addAttribute("error2", "This is a required field");
             }
             if (!verifyPassword(user.getPassword(), verify)){
-                model.addAttribute("error3", "Let's try that password again!");
+                model.addAttribute("error3", "Passwords must match and not be empty");
             }
             return "user/add";
         }
+
+
     }
 
     private boolean verifyPassword(String password1, String password2){
-        return password1.equals(password2);
+        return password1.equals(password2) && password1.length() > 0;
     }
 
     private boolean verifyUserName(String userName) {
