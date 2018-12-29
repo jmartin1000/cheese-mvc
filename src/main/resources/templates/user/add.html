@@ -6,36 +6,27 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" style="max-width:600px;">
-    <div th:unless="${user}" class="form-group">
-        <label for="name-field">Name</label>
-        <input class="form-control" id="name-field" type="text" name="username" placeholder="must be 5 to 15 letters, no other characters"/>
-    </div>
-    <div th:if="${user}" class="form-group">
-        <label for="name-field">Name</label>
-        <input class="form-control" id="name-field" type="text" name="username" th:value="${user.username}"/>
-        <span th:if="${error1}" style="color: red;" th:text="${error1}"></span>
-    </div>
-    <div th:unless="${user}" class="form-group">
-        <label for="email-field">Email</label>
-        <input class="form-control" id="email-field" type="email" name="email" />
-    </div>
-    <div th:if="${user}" class="form-group">
-        <label for="email-field">Email</label>
-        <input class="form-control" id="email-field" type="email" name="email" th:value="${user.email}"/>
-        <span th:if="${error2}" style="color: red;" th:text="${error2}"></span>
+<form method="post" style="max-width:600px;" th:object="${user}">
+    <div class="form-group">
+        <label th:for="username">Name</label>
+        <input class="form-control" th:field="*{username}"/>
+        <span th:errors="*{username}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="pswd-field">Password</label>
-        <input class="form-control" id="pswd-field" type="password" name="password" />
-        <span th:if="${error3}" style="color: red;" th:text="${error3}"></span>
+        <label th:for="email">Email</label>
+        <input class="form-control" th:field="*{email}" type="email"/>
+        <span th:errors="*{email}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="pswd-verify">Verify Password</label>
-        <input class="form-control" id="pswd-verify" type="password" name="verify" />
+        <label th:for="password">Password</label>
+        <input class="form-control" th:field="*{password}" type="password"/>
+        <span th:errors="*{password}" class="error"></span>
     </div>
-    <input th:if="${user}" type="hidden" name="id" th:value="${user.userId}" />
-    <input th:unless="${user}" type="hidden" name="id" value="0" />
+    <div class="form-group">
+        <label th:for="verifyPassword">Verify Password</label>
+        <input class="form-control" th:field="*{verifyPassword}" type="password"/>
+        <span th:errors="*{verifyPassword}" class="error"></span>
+    </div>
     <input type="submit" value="Sign Up" />
 </form>
 

@@ -1,14 +1,25 @@
 package org.launchcode.cheesemvc.models;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 public class User {
     public static int nextId = 1;
 
+    @NotNull
+    @Size(min=5, max = 15)
     private String username;
+
     private String email;
+
+    @NotNull
+    @Size(min=6)
     private String password;
+
+    @NotNull(message = "Passwords do not match")
+    private String verifyPassword;
+
     private LocalDate date;
     private int userId;
 
@@ -48,6 +59,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        checkPassword();
+    }
+
+    public String getVerifyPassword() {
+        return verifyPassword;
+    }
+
+    public void setVerifyPassword(String verifyPassword) {
+        this.verifyPassword = verifyPassword;
+        checkPassword();
     }
 
     public static int getNextId() {
@@ -72,5 +93,13 @@ public class User {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    private void checkPassword () {
+        if (getPassword()!=null && getVerifyPassword()!=null) {
+            if (!getPassword().equals(getVerifyPassword())) {
+                setVerifyPassword(null);
+            }
+        }
     }
 }
