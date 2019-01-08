@@ -1,8 +1,17 @@
 package org.launchcode.cheesemvc.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
+import java.util.Objects;
 
+@Entity
 public class Cheese {
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min=3, max=15)
@@ -18,19 +27,18 @@ public class Cheese {
     private int rating;
 
     private CheeseType type;
-    private static int nextId = 1;
-    private int cheeseId;
 
     public Cheese(String name, String description) {
-        this();
         this.name = name;
         this.description = description;
     }
 
-    public Cheese() {
-        cheeseId = nextId;
-        nextId++;
+    public Cheese() { }
+
+    public int getId() {
+        return id;
     }
+    // no setter bc once it's been assigned it should never change
 
     public String getName() {
         return name;
@@ -48,14 +56,6 @@ public class Cheese {
         this.description = description;
     }
 
-    public int getCheeseId() {
-        return cheeseId;
-    }
-
-    public void setCheeseId(int cheeseId) {
-        this.cheeseId = cheeseId;
-    }
-
     public CheeseType getType() {
         return type;
     }
@@ -70,5 +70,20 @@ public class Cheese {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cheese)) return false;
+        Cheese cheese = (Cheese) o;
+        return getName().equals(cheese.getName()) &&
+                getDescription().equals(cheese.getDescription()) &&
+                getType() == cheese.getType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getDescription(), getType());
     }
 }

@@ -1,7 +1,8 @@
 package org.launchcode.cheesemvc.controllers;
 
 import org.launchcode.cheesemvc.models.User;
-import org.launchcode.cheesemvc.models.UserData;
+import org.launchcode.cheesemvc.models.data.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,11 +18,14 @@ import javax.validation.Valid;
 @RequestMapping("user")
 public class UserController {
 
+    @Autowired
+    private UserDao userDao;
+
     // Request path: /user
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("users", UserData.getAll());
+        model.addAttribute("users", userDao.findAll());
         model.addAttribute("title", "My Cheeses Users");
 
         return "user/index";
@@ -29,7 +33,8 @@ public class UserController {
 
     @RequestMapping(value = "detail/{userId}", method = RequestMethod.GET)
     public String displayDetail(Model model, @PathVariable int userId) {
-        model.addAttribute("user", UserData.getById(userId));
+        model.addAttribute("user", userDao.findById(userId));
+        System.out.println(userDao.findById(userId));
         return "user/detail";
     }
 
@@ -50,7 +55,7 @@ public class UserController {
             return "user/add";
         }
 
-        UserData.add(user);
+        userDao.save(user);
         return "redirect:";
 
     }

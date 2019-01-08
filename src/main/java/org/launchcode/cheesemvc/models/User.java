@@ -1,16 +1,33 @@
 package org.launchcode.cheesemvc.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Objects;
 
+@Entity
 public class User {
-    public static int nextId = 1;
+    // old way
+    // public static int nextId = 1;
+    //private int userId;
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min=5, max = 15)
     private String username;
 
+    /* this one does a little more validation, but it doesn't allow user to skip this field
+    @Email(regexp=".+@.+\\..+", message="Please provide a valid email address")
+    */
+    // this one has same criteria as client side validation
+    @Email
     private String email;
 
     @NotNull
@@ -21,11 +38,8 @@ public class User {
     private String verifyPassword;
 
     private LocalDate date;
-    private int userId;
 
     public User() {
-        userId = nextId;
-        nextId++;
         date = LocalDate.now();
     }
 
@@ -35,6 +49,10 @@ public class User {
         this.email = email;
         this.password = password;
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -71,22 +89,6 @@ public class User {
         checkPassword();
     }
 
-    public static int getNextId() {
-        return nextId;
-    }
-
-    public static void setNextId(int nextId) {
-        User.nextId = nextId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -101,5 +103,18 @@ public class User {
                 setVerifyPassword(null);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getUsername().equals(user.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername());
     }
 }
